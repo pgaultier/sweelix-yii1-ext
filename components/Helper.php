@@ -2,7 +2,7 @@
 /**
  * File Helper.php
  *
- * PHP version 5.2+
+ * PHP version 5.4+
  *
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
