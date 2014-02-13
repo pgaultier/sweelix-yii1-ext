@@ -11,7 +11,6 @@
  * @link      http://www.sweelix.net
  * @category  db
  * @package   sweelix.yii1.ext.db
- * @since     1.0.0
  */
 
 namespace sweelix\yii1\ext\db;
