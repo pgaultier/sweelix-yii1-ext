@@ -10,7 +10,7 @@
  * @version   2.0.0
  * @link      http://www.sweelix.net
  * @category  entities
- * @package   sweelix.yii1.ext.db.entities
+ * @package   sweelix.yii1.ext.entities
  */
 
 namespace sweelix\yii1\ext\entities;
@@ -27,7 +27,7 @@ use sweelix\yii1\ext\db\ar\Token as ActiveRecordToken;
  * @version   2.0.0
  * @link      http://www.sweelix.net
  * @category  entities
- * @package   sweelix.yii1.ext.db.entities
+ * @package   sweelix.yii1.ext.entities
  *
  * @property Author[]  $authors
  * @property Content[] $contents

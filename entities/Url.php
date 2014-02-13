@@ -10,7 +10,7 @@
  * @version   2.0.0
  * @link      http://www.sweelix.net
  * @category  entities
- * @package   sweelix.yii1.ext.db.entities
+ * @package   sweelix.yii1.ext.entities
  */
 
 namespace sweelix\yii1\ext\entities;
@@ -27,7 +27,7 @@ use sweelix\yii1\ext\db\ar\Url as ActiveRecordUrl;
  * @version   2.0.0
  * @link      http://www.sweelix.net
  * @category  entities
- * @package   sweelix.yii1.ext.db.entities
+ * @package   sweelix.yii1.ext.entities
  * @since     1.0.0
  */
 class Url extends ActiveRecordUrl {
