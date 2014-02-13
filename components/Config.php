@@ -30,8 +30,6 @@ namespace sweelix\yii1\ext\components;
  * 		...
  * </code>
  *
- * PHP version 5.2+
- *
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license

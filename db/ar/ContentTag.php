@@ -21,12 +21,12 @@ namespace sweelix\yii1\ext\db\ar;
  * This is the model class for table "contentTag".
  *
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
- * @copyright 2010-2013 Sweelix
+ * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
  * @version   2.0.0
  * @link      http://www.sweelix.net
  * @category  ar
- * @package   sweext.db.ar
+ * @package   sweelix.yii1.ext.db.ar
  * @since     1.0.0
  *
  * @property integer $contentId
