@@ -81,7 +81,7 @@ class CriteriaBuilder extends \CComponent {
 	 */
 	public function __construct($target, $wantedClass=null) {
 		if(preg_match('/^(content|node|tag|group|language|author|meta|template)s?$/i', $target, $matches)>0) {
-			$base = strtolower($matches[2]);
+			$base = strtolower($matches[1]);
 			if($wantedClass === null) {
 				$this->_modelClass = 'sweelix\\yii1\\ext\\entities\\'.ucfirst($base);
 			} else {
