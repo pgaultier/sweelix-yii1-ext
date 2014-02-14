@@ -14,7 +14,7 @@
  */
 
 namespace sweelix\yii1\ext\behaviors;
-use sweelix\yii1\ext\entities\Token;
+use sweelix\yii1\ext\entities\Token as EntityToken;
 
 /**
  * This class handle the indexer behavior
@@ -98,7 +98,7 @@ class Token extends \CBehavior {
 	public function handleData($propertyData, $property, $info, $data) {
 
 		$element = $this->type."Id";
-		Token::model()->deleteAllByAttributes(array(
+		EntityToken::model()->deleteAllByAttributes(array(
 			'elementId' => $this->id,
 			'elementProperty' => $property,
 			'elementType' => $this->type,
@@ -106,7 +106,7 @@ class Token extends \CBehavior {
 
 		if($data[$property] !== false) {
 			if($data[$property]['numerical'] === true) {
-				$obj = new Token();
+				$obj = new EntityToken();
 
 				$obj->elementId = $this->id;
 				$obj->elementType = $this->type;
@@ -155,7 +155,7 @@ class Token extends \CBehavior {
 
 				foreach ($indexedWord as $word => $value) {
 					if (strlen($word) >= $data[$property]['minLength']) {
-						$obj = new Token();
+						$obj = new EntityToken();
 						$obj->elementId = $this->id;
 						$obj->elementType = $this->type;
 						$obj->$element = $this->id;
