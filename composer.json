@@ -1,0 +1,24 @@
+{
+	"name" : "sweelix/yii1-cmsext",
+	"description" : "PHP 5.4+ Sweelix CMS extension for Yii",
+	"type" : "library",
+	"keywords" : [ "sweelix", "yii", "cms" ],
+	"license" : "BSD-3-Clause",
+	"authors" : [ {
+	"name" : "Philippe Gaultier",
+		"email" : "pgaultier@sweelix.net"
+	} ],
+	"require" : {
+		"php" : ">=5.4.0",
+		"yiisoft/yii" : "=1.1.14"
+	},
+	"require-dev" : {
+		"php" : ">=5.4.0",
+		"yiisoft/yii" : "=1.1.14"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"sweelix\\yii1\\ext\\" : ""
+		}
+	}
+}
