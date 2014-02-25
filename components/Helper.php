@@ -40,7 +40,7 @@ class Helper {
 	 * @return array
 	 * @since  1.0.0
 	 */
-	public static function SwNodesToArray($nodes) {
+	public static function linearizeNodesToArray($nodes) {
 		$newNodes = array();
 		while(($node = array_shift($nodes)) !== null) {
 			$children = ($node->nodeRightId - $node->nodeLeftId - 1) / 2;
@@ -64,7 +64,7 @@ class Helper {
 	 * @return array
 	 * @since  1.0.0
 	 */
-	public static function SwNodesToDropDownList($nodes, $initial=array(), $separator=' - ') {
+	public static function linearizeNodesToDropDownList($nodes, $initial=array(), $separator=' - ') {
 		if($nodes instanceof \CActiveDataProvider) {
 			foreach($nodes->getData() as $node) {
 				$initial[$node->nodeId] = str_repeat($separator, $node->nodeLevel).$node->nodeTitle;
