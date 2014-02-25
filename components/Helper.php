@@ -46,7 +46,7 @@ class Helper {
 			$children = ($node->nodeRightId - $node->nodeLeftId - 1) / 2;
 			if($children > 0) {
 				$childrenNodes =array_splice($nodes, 0, $children);
-				$newNodes[] = array('node'=>$node, 'children'=>self::SwNodesToArray($childrenNodes));
+				$newNodes[] = array('node'=>$node, 'children'=>self::linearizeNodesToArray($childrenNodes));
 			} else {
 				$newNodes[] = array('node'=>$node, 'children'=>null);
 			}
