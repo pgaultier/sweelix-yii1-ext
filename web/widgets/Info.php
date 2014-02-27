@@ -15,7 +15,7 @@
 
 namespace sweelix\yii1\ext\web\widgets;
 use sweelix\yii1\ext\web\Controller;
-use sweelix\yii1\ext\components\Config as Sweext;
+use sweelix\yii1\ext\components\Config as Ext;
 
 /**
  * Class Info display info needed by the developper
@@ -50,7 +50,7 @@ class Info extends \CWidget {
 			ob_start();
 			if($this->getController() instanceof Controller) {
 				$this->_cmsInfo = array(
-					'sweelix' => Sweext::getVersion(),
+					'sweelix' => Ext::getVersion(),
 					'nodeId' => $this->getController()->nodeId,
 					'contentId' => $this->getController()->contentId,
 					'groupId' => $this->getController()->groupId,
@@ -59,7 +59,7 @@ class Info extends \CWidget {
 				);
 			} else {
 				$this->_cmsInfo = array(
-					'sweelix' => Sweext::getVersion(),
+					'sweelix' => Ext::getVersion(),
 					'nodeId' => null,
 					'contentId' => null,
 					'groupId' => null,
