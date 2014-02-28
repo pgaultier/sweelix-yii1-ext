@@ -79,28 +79,52 @@ class Node extends \CComponent {
 	public static function insert(EntityNode &$node, $targetId) {
 		try {
 			\Yii::trace('Insert node into nodeId : '.$targetId, 'sweelix.yii1.ext.db.dao');
-			$sql = 'CALL spNodeInsert(:targetNodeId, :nodeTitle, :nodeUrl, :nodeData,
-				:nodeCreateDate, :nodeDisplayMode, :nodeRedirection, :nodeStatus, :nodeViewed, :authorId,
-				:templateId, :languageId)';
+			// List of attributes to send with the proc call
+			$attributeNames = array(
+				'nodeTitle', 'nodeUrl', 'nodeData', 'nodeCreateDate', 'nodeDisplayMode', 'nodeRedirection', 'nodeStatus',
+				'nodeViewed', 'authorId', 'templateId', 'languageId'
+			);
+
+			// Used to prefix a placeholder
+			$paramPrefix = ':';
+			// Used as parameters of procedure call
+			$placeholders = array($paramPrefix.'targetNodeId');
+			// Used for value binding
+			$values = array($paramPrefix.'targetNodeId' => $targetId);
+
+			// Build placeholders and values
+			foreach($attributeNames as $attributeName) {
+				$value = $node->$attributeName;
+
+				if($value instanceof \CDbExpression) {
+					//If it's a CDbExpression, placeholder is the expressions and values are eventual expression parameters
+					$placeholders[] = $value->expression;
+					foreach($value->params as $k => $v) {
+							$values[$k] = $v;
+					}
+				} else {
+					//If it isn't a CDExpression placeholder is the name of the attribute, value is the value of the attribute
+					$placeholders[] = $paramPrefix.$attributeName;
+					$values[$paramPrefix.$attributeName] = $value;
+				}
+			}
+
+			// Build call command with placeholders as proc parameters
+			$sql = 'CALL spNodeInsert('.implode(', ', $placeholders).')';
 			$cmd = $node->dbConnection->createCommand($sql);
-			$cmd->bindValue ( ':targetNodeId', $targetId, \PDO::PARAM_INT );
-			$cmd->bindValue ( ':nodeTitle', $node->nodeTitle, \PDO::PARAM_STR );
-			$cmd->bindValue ( ':nodeUrl', $node->nodeUrl, \PDO::PARAM_STR );
-			$cmd->bindValue ( ':nodeData', $node->nodeData, \PDO::PARAM_STR );
-			$cmd->bindValue ( ':nodeCreateDate', $node->nodeCreateDate, \PDO::PARAM_STR );
-			$cmd->bindValue ( ':nodeDisplayMode', $node->nodeDisplayMode, \PDO::PARAM_STR );
-			$cmd->bindValue ( ':nodeRedirection', $node->nodeRedirection, \PDO::PARAM_INT );
-			$cmd->bindValue ( ':nodeStatus', $node->nodeStatus, \PDO::PARAM_STR );
-			$cmd->bindValue ( ':nodeViewed', $node->nodeViewed, \PDO::PARAM_INT );
-			$cmd->bindValue ( ':authorId', $node->authorId, \PDO::PARAM_INT );
-			$cmd->bindValue ( ':templateId', $node->templateId, \PDO::PARAM_INT );
-			$cmd->bindValue ( ':languageId', $node->languageId, \PDO::PARAM_STR );
+
+			// Bind values
+			foreach($values as $name => $value) {
+					$cmd->bindValue($name, $value);
+			}
+
 			$data = $cmd->queryRow();
 			$node->nodeId = $data['nodeId'];
 			$node->nodeLeftId = $data['nodeLeftId'];
 			$node->nodeRightId = $data['nodeRightId'];
 			$node->nodeLevel = $data['nodeLevel'];
 			$result = true;
+
 		}
 		catch(\Exception $e) {
 			\Yii::log('Error in '.__METHOD__.'():'.$e->getMessage(), \CLogger::LEVEL_ERROR, 'sweelix.yii1.ext.db.dao');
