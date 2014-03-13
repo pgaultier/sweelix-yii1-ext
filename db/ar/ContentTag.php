@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   3.0.0
+ * @version   3.0.1
  * @link      http://www.sweelix.net
  * @category  ar
  * @package   sweelix.yii1.ext.db.ar
@@ -23,7 +23,7 @@ namespace sweelix\yii1\ext\db\ar;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   3.0.0
+ * @version   3.0.1
  * @link      http://www.sweelix.net
  * @category  ar
  * @package   sweelix.yii1.ext.db.ar

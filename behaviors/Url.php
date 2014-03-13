@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   3.0.0
+ * @version   3.0.1
  * @link      http://www.sweelix.net
  * @category  behaviors
  * @package   sweelix.yii1.ext.behaviors
@@ -26,7 +26,7 @@ use sweelix\yii1\ext\entities\Url as EntityUrl;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   3.0.0
+ * @version   3.0.1
  * @link      http://www.sweelix.net
  * @category  behaviors
  * @package   sweelix.yii1.ext.behaviors
