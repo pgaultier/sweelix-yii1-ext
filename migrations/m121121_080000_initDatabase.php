@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  migrations
  * @package   sweelix.yii1.ext.migrations
@@ -24,7 +24,7 @@ namespace sweelix\yii1\ext\migrations;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  migrations
  * @package   sweelix.yii1.ext.migrations

@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  entities
  * @package   sweelix.yii1.ext.entities
@@ -24,7 +24,7 @@ use sweelix\yii1\ext\db\ar\Group as ActiveRecordGroup;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  entities
  * @package   sweelix.yii1.ext.entities
@@ -282,7 +282,7 @@ class Group extends ActiveRecordGroup {
 	 * @see CActiveRecord::beforeSave()
 	 *
 	 * @return boolean
-	 * @since  XXX
+	 * @since  3.0.0
 	 */
 	public function beforeSave() {
 		if($this->isNewRecord === true) {
