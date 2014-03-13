@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  behaviors
  * @package   sweelix.yii1.ext.behaviors
@@ -21,7 +21,7 @@ namespace sweelix\yii1\ext\behaviors;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  behaviors
  * @package   sweelix.yii1.ext.behaviors
@@ -93,7 +93,7 @@ class Template extends \CBehavior {
 	 * Reset known template information
 	 *
 	 * @return void
-	 * @since XXX
+	 * @since 3.0.0
 	 */
 	public function resetTemplateData() {
 		self::$_templateDefinitions = null;

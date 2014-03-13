@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  db
  * @package   sweelix.yii1.ext.db
@@ -33,7 +33,7 @@ use sweelix\yii1\ext\db\Mapper;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  db
  * @package   sweelix.yii1.ext.db

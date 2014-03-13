@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  components
  * @package   sweelix.yii1.ext.components
@@ -33,7 +33,7 @@ namespace sweelix\yii1\ext\components;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  components
  * @package   sweelix.yii1.ext.components
@@ -49,7 +49,7 @@ class Config extends \CApplicationComponent {
 	 * @since  1.2.0
 	 */
 	public static function getVersion() {
-		return '2.2.0';
+		return '3.0.0';
 	}
 	/**
 	 * Return product info
