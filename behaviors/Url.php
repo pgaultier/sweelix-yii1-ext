@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  behaviors
  * @package   sweelix.yii1.ext.behaviors
@@ -26,7 +26,7 @@ use sweelix\yii1\ext\entities\Url as EntityUrl;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  behaviors
  * @package   sweelix.yii1.ext.behaviors
@@ -49,7 +49,7 @@ class Url extends \CActiveRecordBehavior {
 	 * Delete urls when element is removed
 	 *
 	 * @return void
-	 * @since  XXX
+	 * @since  3.0.0
 	 */
 	public function deleteUrl($event) {
 		$urlElementType = null;

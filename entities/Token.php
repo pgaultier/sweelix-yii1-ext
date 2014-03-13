@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  entities
  * @package   sweelix.yii1.ext.entities
@@ -24,7 +24,7 @@ use sweelix\yii1\ext\db\ar\Token as ActiveRecordToken;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   2.0.0
+ * @version   3.0.0
  * @link      http://www.sweelix.net
  * @category  entities
  * @package   sweelix.yii1.ext.entities
@@ -129,7 +129,7 @@ class Token extends ActiveRecordToken {
 	 * Find the author of selected element
 	 *
 	 * @return Author or null if not find.
-	 * @since  XXX
+	 * @since  3.0.0
 	 */
 	public function getAuthor() {
 		$id = null;
