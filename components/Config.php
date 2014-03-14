@@ -49,7 +49,7 @@ class Config extends \CApplicationComponent {
 	 * @since  1.2.0
 	 */
 	public static function getVersion() {
-		return '3.0.0';
+		return '3.0.2-dev';
 	}
 	/**
 	 * Return product info
