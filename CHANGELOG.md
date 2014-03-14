@@ -1,4 +1,5 @@
 
+  - change entity node save() signature
   - adding missing files (license, ...)
 
 ## 3.0.1

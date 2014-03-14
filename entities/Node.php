@@ -323,15 +323,15 @@ class Node extends ActiveRecordNode {
 	 * Upgraded save method to handle business logic (stored procedures)
 	 * this is specific to tree management @see CActiveRecord::save()
 	 *
-	 * @param integer $targetNodeId  nodeId where the current node will be saved
 	 * @param boolean $runValidation perform validation
 	 * @param array   $attributes    attributes to save
+	 * @param integer $targetNodeId  nodeId where the current node will be saved
 	 *
 	 * @return boolean
 	 * @since  1.0.0
 	 * @todo   Create a better signature with targetNodeId at the end to be compliant with Ar
 	 */
-	public function save($targetNodeId=null, $runValidation=true, $attributes=null) {
+	public function save($runValidation=true, $attributes=null, $targetNodeId=null) {
 		if(($runValidation !== true) || ($this->validate($attributes) === true)) {
 			if(($this->getIsNewRecord()===true) && ($targetNodeId !== null)) {
 				return $this->insert($attributes, $targetNodeId);
