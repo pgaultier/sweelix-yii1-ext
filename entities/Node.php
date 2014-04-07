@@ -17,6 +17,8 @@ namespace sweelix\yii1\ext\entities;
 use sweelix\yii1\ext\db\ar\Node as ActiveRecordNode;
 use sweelix\yii1\ext\db\dao\Node as DaoNode;
 use sweelix\yii1\ext\db\CriteriaBuilder;
+use sweelix\yii1\ext\components\RouteEncoder;
+
 
 /**
  * Class Node
@@ -226,11 +228,11 @@ class Node extends ActiveRecordNode {
 	 * @since  1.6.0
 	 */
 	public function getRoute($action=null) {
-		return array(
-			'node' => $this->nodeId,
-			'url' => $this->nodeUrl,
-			'action' => $action
-		);
+		$route = RouteEncoder::encoder(null, $this->nodeId);
+		if(empty($action) === false) {
+			$route = $route.'/'.$action;
+		}
+		return $route;
 	}
 
 	/**
