@@ -15,7 +15,7 @@
 
 namespace sweelix\yii1\ext\web;
 
-use sweelix\yii1\components\RouteEncoder;
+use sweelix\yii1\ext\components\RouteEncoder;
 use CBaseUrlRule;
 use Yii;
 
