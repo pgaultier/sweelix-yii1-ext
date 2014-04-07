@@ -9,12 +9,13 @@
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
- * @category  components
- * @package   sweelix.yii2.ext.components
+ * @category  web
+ * @package   sweelix.yii2.ext.web
  */
 
-namespace sweelix\yii1\ext\components;
+namespace sweelix\yii1\ext\web;
 
+use sweelix\yii1\components\RouteEncoder;
 use CBaseUrlRule;
 use Yii;
 
@@ -29,7 +30,7 @@ use Yii;
  *			'suffix' => '.html',
  *			'rules' => [
  *				[
- *					'class' => 'sweelix\yii2\ext\components\CmsUrlRule',
+ *					'class' => 'sweelix\yii2\ext\web\CmsUrlRule',
  *				],
  *			],
  *		],
@@ -41,8 +42,8 @@ use Yii;
  * @license   http://www.sweelix.net/license license
  * @version   XXX
  * @link      http://www.sweelix.net
- * @category  components
- * @package   sweelix.yii2.ext.components
+ * @category  web
+ * @package   sweelix.yii2.ext.web
  * @since     XXX
  */
 class CmsUrlRule extends CBaseUrlRule {
@@ -70,7 +71,7 @@ class CmsUrlRule extends CBaseUrlRule {
 	 */
 	public function createUrl($manager, $route, $params, $ampersand) {
 		$prettyUrl = false;
-		if(($decodedRoute = RouteManager::decode($route)) !== false) {
+		if(($decodedRoute = RouteEncoder::decode($route)) !== false) {
 			$url = null;
 			list($contentId, $nodeId, $tagId, $groupId) = $decodedRoute;
 			if($contentId !== null) {
@@ -155,7 +156,7 @@ class CmsUrlRule extends CBaseUrlRule {
 							$groupId = $url['urlElementId'];
 						break;
 					}
-					$prettyUrl = RouteManager::encode($contentId, $nodeId, $tagId, $groupId);
+					$prettyUrl = RouteEncoder::encode($contentId, $nodeId, $tagId, $groupId);
 				}
             }
 		}

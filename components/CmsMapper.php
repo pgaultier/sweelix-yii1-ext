@@ -55,7 +55,13 @@ class CmsMapper extends CComponent implements ArrayAccess {
 
 	public static $CACHE_EXPIRE=3600;
 
+	/**
+	 * @var string controller namespace
+	 */
 	public $controllerNamespace;
+	/**
+	 * @var array original maps
+	 */
 	public $additionalMap = [];
 
 	/**
@@ -67,7 +73,7 @@ class CmsMapper extends CComponent implements ArrayAccess {
 	 * @since  XXX
 	 */
 	public function offsetExists ($offset) {
-		return (isset($this->additionalMap[$offset]) === true) || (RouteManager::decode($offset) !== false);
+		return (isset($this->additionalMap[$offset]) === true) || (RouteEncoder::decode($offset) !== false);
 	}
 
 	/**
@@ -84,7 +90,7 @@ class CmsMapper extends CComponent implements ArrayAccess {
 		$mappedController = null;
 		if(isset($this->additionalMap[$offset]) === true) {
 			$mappedController = $this->additionalMap[$offset];
-		} elseif(($data = RouteManager::decode($offset)) !== false) {
+		} elseif(($data = RouteEncoder::decode($offset)) !== false) {
 			// list($contentId, $nodeId, $tagId, $groupId) = $data;
 			list($controller, $action) = self::findController($data);
 			if($this->controllerNamespace !== null) {
@@ -98,8 +104,11 @@ class CmsMapper extends CComponent implements ArrayAccess {
 				'nodeId' => $data[1],
 				'tagId' => $data[2],
 				'groupId' => $data[3],
-				'targetAction' => $action,
 			];
+			if(empty($action) === false) {
+				$mappedController['defaultAction'] = $action;
+
+			}
 		}
 		return $mappedController;
 	}
