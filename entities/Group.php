@@ -152,7 +152,7 @@ class Group extends ActiveRecordGroup {
 	 * @since  1.6.0
 	 */
 	public function getRoute($action=null) {
-		$route = RouteEncoder::encoder(null, null, null, $this->groupId);
+		$route = RouteEncoder::encode(null, null, null, $this->groupId);
 		if(empty($action) === false) {
 			$route = $route.'/'.$action;
 		}

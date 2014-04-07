@@ -223,7 +223,7 @@ class Content extends ActiveRecordContent {
 	 * @since  1.6.0
 	 */
 	public function getRoute($action=null) {
-		$route = RouteEncoder::encoder($this->contentId);
+		$route = RouteEncoder::encode($this->contentId);
 		if(empty($action) === false) {
 			$route = $route.'/'.$action;
 		}
