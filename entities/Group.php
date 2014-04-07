@@ -15,6 +15,7 @@
 
 namespace sweelix\yii1\ext\entities;
 use sweelix\yii1\ext\db\ar\Group as ActiveRecordGroup;
+use sweelix\yii1\ext\components\RouteEncoder;
 
 /**
  * Class Group
@@ -151,11 +152,11 @@ class Group extends ActiveRecordGroup {
 	 * @since  1.6.0
 	 */
 	public function getRoute($action=null) {
-		return array(
-			'group' => $this->groupId,
-			'url' => $this->groupUrl,
-			'action' => $action
-		);
+		$route = RouteEncoder::encode(null, null, null, $this->groupId);
+		if(empty($action) === false) {
+			$route = $route.'/'.$action;
+		}
+		return $route;
 	}
 
 	/**
