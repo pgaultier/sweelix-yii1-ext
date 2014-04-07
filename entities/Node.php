@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   3.0.1
+ * @version   3.1.0
  * @link      http://www.sweelix.net
  * @category  entities
  * @package   sweelix.yii1.ext.entities
@@ -17,6 +17,8 @@ namespace sweelix\yii1\ext\entities;
 use sweelix\yii1\ext\db\ar\Node as ActiveRecordNode;
 use sweelix\yii1\ext\db\dao\Node as DaoNode;
 use sweelix\yii1\ext\db\CriteriaBuilder;
+use sweelix\yii1\ext\components\RouteEncoder;
+
 
 /**
  * Class Node
@@ -26,7 +28,7 @@ use sweelix\yii1\ext\db\CriteriaBuilder;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   3.0.1
+ * @version   3.1.0
  * @link      http://www.sweelix.net
  * @category  entities
  * @package   sweelix.yii1.ext.entities
@@ -226,11 +228,11 @@ class Node extends ActiveRecordNode {
 	 * @since  1.6.0
 	 */
 	public function getRoute($action=null) {
-		return array(
-			'node' => $this->nodeId,
-			'url' => $this->nodeUrl,
-			'action' => $action
-		);
+		$route = RouteEncoder::encode(null, $this->nodeId).'/';
+		if(empty($action) === false) {
+			$route = $route.$action;
+		}
+		return $route;
 	}
 
 	/**
@@ -323,15 +325,15 @@ class Node extends ActiveRecordNode {
 	 * Upgraded save method to handle business logic (stored procedures)
 	 * this is specific to tree management @see CActiveRecord::save()
 	 *
-	 * @param integer $targetNodeId  nodeId where the current node will be saved
 	 * @param boolean $runValidation perform validation
 	 * @param array   $attributes    attributes to save
+	 * @param integer $targetNodeId  nodeId where the current node will be saved
 	 *
 	 * @return boolean
 	 * @since  1.0.0
 	 * @todo   Create a better signature with targetNodeId at the end to be compliant with Ar
 	 */
-	public function save($targetNodeId=null, $runValidation=true, $attributes=null) {
+	public function save($runValidation=true, $attributes=null, $targetNodeId=null) {
 		if(($runValidation !== true) || ($this->validate($attributes) === true)) {
 			if(($this->getIsNewRecord()===true) && ($targetNodeId !== null)) {
 				return $this->insert($attributes, $targetNodeId);

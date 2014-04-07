@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   3.0.1
+ * @version   3.1.0
  * @link      http://www.sweelix.net
  * @category  entities
  * @package   sweelix.yii1.ext.entities
@@ -17,6 +17,7 @@ namespace sweelix\yii1\ext\entities;
 use sweelix\yii1\ext\db\ar\Content as ActiveRecordContent;
 use sweelix\yii1\ext\db\dao\Content as DaoContent;
 use sweelix\yii1\ext\db\CriteriaBuilder;
+use sweelix\yii1\ext\components\RouteEncoder;
 
 /**
  * Class Content
@@ -26,7 +27,7 @@ use sweelix\yii1\ext\db\CriteriaBuilder;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   3.0.1
+ * @version   3.1.0
  * @link      http://www.sweelix.net
  * @category  entities
  * @package   sweelix.yii1.ext.entities
@@ -222,11 +223,11 @@ class Content extends ActiveRecordContent {
 	 * @since  1.6.0
 	 */
 	public function getRoute($action=null) {
-		return array(
-			'content' => $this->contentId,
-			'url' => $this->contentUrl,
-			'action' => $action
-		);
+		$route = RouteEncoder::encode($this->contentId).'/';
+		if(empty($action) === false) {
+			$route = $route.$action;
+		}
+		return $route;
 	}
 
 	/**
