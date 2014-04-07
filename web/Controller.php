@@ -14,6 +14,7 @@
  */
 
 namespace sweelix\yii1\ext\web;
+use sweelix\yii1\ext\components\RouteEncoder;
 use sweelix\yii1\ext\entities\Node;
 use sweelix\yii1\ext\entities\Content;
 use sweelix\yii1\ext\entities\Group;
@@ -34,6 +35,25 @@ use CController;
  * @since     1.0.0
  */
 class Controller extends CController {
+
+	/**
+	 * @param string $id id of this controller
+	 * @param CWebModule $module the module that this controller belongs to.
+	 */
+	public function __construct($id,$module=null) {
+		if(RouteEncoder::decode($id) !== false) {
+			$class = get_class($this);
+			if (($pos = strrpos($class, '\\')) !== false) {
+				$class = substr($class, $pos + 1);
+			}
+			if (($pos = strrpos($class, 'Controller')) !== false) {
+				$class = substr($class, 0, $pos);
+			}
+			$id = lcfirst($class);
+		}
+		parent::__construct($id,$module=null);
+	}
+
 	/**
 	 * @var integer contentId
 	 */
