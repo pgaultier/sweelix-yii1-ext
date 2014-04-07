@@ -15,7 +15,6 @@
  */
 
 namespace sweelix\yii1\ext\behaviors;
-// use sweelix\yii2\ext\components\CmsMapper;
 use CBehavior;
 use Yii;
 
