@@ -228,9 +228,9 @@ class Node extends ActiveRecordNode {
 	 * @since  1.6.0
 	 */
 	public function getRoute($action=null) {
-		$route = RouteEncoder::encode(null, $this->nodeId);
+		$route = RouteEncoder::encode(null, $this->nodeId).'/';
 		if(empty($action) === false) {
-			$route = $route.'/'.$action;
+			$route = $route.$action;
 		}
 		return $route;
 	}
