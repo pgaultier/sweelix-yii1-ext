@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   XXX
+ * @version   3.1.0
  * @link      http://www.sweelix.net
  * @category  web
  * @package   sweelix.yii2.ext.web
@@ -40,11 +40,11 @@ use Yii;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   XXX
+ * @version   3.1.0
  * @link      http://www.sweelix.net
  * @category  web
  * @package   sweelix.yii2.ext.web
- * @since     XXX
+ * @since     3.1.0
  */
 class CmsUrlRule extends CBaseUrlRule {
 
@@ -67,7 +67,7 @@ class CmsUrlRule extends CBaseUrlRule {
 	 * @param array      $params  additional parameters
 	 *
 	 * @return mixed
-	 * @since  XXX
+	 * @since  3.1.0
 	 */
 	public function createUrl($manager, $route, $params, $ampersand) {
 		$prettyUrl = false;
@@ -116,7 +116,7 @@ class CmsUrlRule extends CBaseUrlRule {
 	 * @param Request    $request current request
 	 *
 	 * @return mixed
-	 * @since  XXX
+	 * @since  3.1.0
 	 */
 	public function parseUrl($manager, $request, $pathInfo, $rawPathInfo) {
 		$prettyUrl = false;

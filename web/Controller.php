@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   3.0.1
+ * @version   3.1.0
  * @link      http://www.sweelix.net
  * @category  web
  * @package   sweelix.yii1.ext.web
@@ -28,7 +28,7 @@ use CController;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   3.0.1
+ * @version   3.1.0
  * @link      http://www.sweelix.net
  * @category  web
  * @package   sweelix.yii1.ext.web

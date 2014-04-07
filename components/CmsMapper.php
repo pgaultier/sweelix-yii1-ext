@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   XXX
+ * @version   3.1.0
  * @link      http://www.sweelix.net
  * @category  components
  * @package   sweelix.yii1.ext.components
@@ -41,11 +41,11 @@ use Yii;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   XXX
+ * @version   3.1.0
  * @link      http://www.sweelix.net
  * @category  components
  * @package   sweelix.yii2.ext.components
- * @since     XXX
+ * @since     3.1.0
  *
  * @property string urlPattern
  */
@@ -70,7 +70,7 @@ class CmsMapper extends CComponent implements ArrayAccess {
 	 * @param mixed $offset target route
 	 *
 	 * @return boolean
-	 * @since  XXX
+	 * @since  3.1.0
 	 */
 	public function offsetExists ($offset) {
 		return (isset($this->additionalMap[$offset]) === true) || (RouteEncoder::decode($offset) !== false);
@@ -84,7 +84,7 @@ class CmsMapper extends CComponent implements ArrayAccess {
 	 * @param mixed $offset target route
 	 *
 	 * @return mixed
-	 * @since  XXX
+	 * @since  3.1.0
 	 */
 	public function offsetGet ($offset) {
 		$mappedController = null;
@@ -120,7 +120,7 @@ class CmsMapper extends CComponent implements ArrayAccess {
 	 * @param mixed $value  controller definition
 	 *
 	 * @return void
-	 * @since  XXX
+	 * @since  3.1.0
 	 */
 	public function offsetSet ($offset, $value) {
 		$this->additionalMap[$offset] = $value;
@@ -132,7 +132,7 @@ class CmsMapper extends CComponent implements ArrayAccess {
 	 * @param mixed $offset route to remove
 	 *
 	 * @return void
-	 * @since  XXX
+	 * @since  3.1.0
 	 */
 	public function offsetUnset ($offset) {
 		unset($this->additionalMap[$offset]);
@@ -143,7 +143,7 @@ class CmsMapper extends CComponent implements ArrayAccess {
 	 * @param Template $template template object
 	 *
 	 * @return string
-	 * @since  XXX
+	 * @since  3.1.0
 	 */
 	private static function buildRouteFromTemplate(&$template) {
 		if($template->templateController === null) {
@@ -180,7 +180,7 @@ class CmsMapper extends CComponent implements ArrayAccess {
 	 * @param array $cmsData cms related information
 	 *
 	 * @return string
-	 * @since  XXX
+	 * @since  3.1.0
 	 */
 	private static function findController(&$cmsData) {
 		$controller = null;
