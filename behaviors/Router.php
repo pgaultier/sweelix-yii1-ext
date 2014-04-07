@@ -7,11 +7,11 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   XXX
+ * @version   3.1.0
  * @link      http://www.sweelix.net
  * @category  behaviors
  * @package   sweelix.yii1.ext.behaviors
- * @since     XXX
+ * @since     3.1.0
  */
 
 namespace sweelix\yii1\ext\behaviors;
@@ -24,11 +24,11 @@ use Yii;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   XXX
+ * @version   3.1.0
  * @link      http://www.sweelix.net
  * @category  behaviors
  * @package   sweelix.yii1.ext.behaviors
- * @since     XXX
+ * @since     3.1.0
  */
 class Router extends CBehavior {
 
@@ -41,7 +41,7 @@ class Router extends CBehavior {
 	 * Attach the router to before request
 	 *
 	 * @return array
-	 * @since  XXX
+	 * @since  3.1.0
 	 */
 	public function events() {
 		return [
@@ -56,7 +56,7 @@ class Router extends CBehavior {
 	 * @param Event $event current event triggered
 	 *
 	 * @return void
-	 * @since  XXX
+	 * @since  3.1.0
 	 */
 	public function beginRequest($event) {
 		$currentApp = $event->sender;

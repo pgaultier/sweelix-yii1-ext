@@ -7,7 +7,7 @@
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   XXX
+ * @version   3.1.0
  * @link      http://www.sweelix.net
  * @category  components
  * @package   sweelix.yii1.ext.components
@@ -21,11 +21,11 @@ namespace sweelix\yii1\ext\components;
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
  * @license   http://www.sweelix.net/license license
- * @version   XXX
+ * @version   3.1.0
  * @link      http://www.sweelix.net
  * @category  components
  * @package   sweelix.yii1.ext.components
- * @since     XXX
+ * @since     3.1.0
  */
 class RouteEncoder {
 	private static $routes = [];
@@ -40,7 +40,7 @@ class RouteEncoder {
 	 * @param integer $groupId   group id (null if not known)
 	 *
 	 * @return string
-	 * @since  XXX
+	 * @since  3.1.0
 	 */
 	public static function encode($contentId=null, $nodeId=null, $tagId=null, $groupId=null) {
 		$header = 0;
@@ -82,7 +82,7 @@ class RouteEncoder {
 	 * @param string  $route   the route to decode
 	 *
 	 * @return array
-	 * @since  XXX
+	 * @since  3.1.0
 	 */
 	public static function decode($route='') {
 		if(isset(self::$routes[$route]) === false) {
