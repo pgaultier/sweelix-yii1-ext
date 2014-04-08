@@ -161,22 +161,22 @@ class Template extends \CBehavior {
 	}
 
 	/**
-	 * Get template definition, usefull when we need
-	 * information from the model
+	 * Get template rendering file, usefull when we need
+	 * to manually format the data
 	 *
 	 * @param integer $templateId templateId
 	 *
-	 * @return array
+	 * @return string
 	 * @since  1.6.0
 	 * @todo   implement correct rendering template system
 	 */
 	public function getRenderingTemplate($templateId) {
-		$tplData = null;
+		$tplFile = false;
 		$path = \Yii::getPathOfAlias($this->templatesDefinitionsAlias).DIRECTORY_SEPARATOR.$this->getTemplateData($templateId, 'definition').'.tpl.php';
 		if(file_exists($path) === true) {
-			$tplData = require($path);
+			$tplFile = $path;
 		}
-		return $tplData;
+		return $tplFile;
 	}
 
 	/**
