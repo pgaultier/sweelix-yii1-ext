@@ -171,10 +171,10 @@ class Template extends \CBehavior {
 	 * @todo   implement correct rendering template system
 	 */
 	public function getRenderingTemplate($templateId) {
-		$tplData = null;
+		$tplData = false;
 		$path = \Yii::getPathOfAlias($this->templatesDefinitionsAlias).DIRECTORY_SEPARATOR.$this->getTemplateData($templateId, 'definition').'.tpl.php';
 		if(file_exists($path) === true) {
-			$tplData = require($path);
+			$tplData = $path;
 		}
 		return $tplData;
 	}
