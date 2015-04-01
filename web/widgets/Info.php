@@ -49,13 +49,14 @@ class Info extends \CWidget {
 			parent::init();
 			ob_start();
 			if($this->getController() instanceof Controller) {
+                $controllerId = $this->getController()->cmsId !== null ? $this->getController()->cmsId : $this->getController()->id;
 				$this->_cmsInfo = array(
 					'sweelix' => Ext::getVersion(),
 					'nodeId' => $this->getController()->nodeId,
 					'contentId' => $this->getController()->contentId,
 					'groupId' => $this->getController()->groupId,
 					'tagId' => $this->getController()->tagId,
-					'controllerAction' => $this->getController()->id.' / '.$this->getController()->getAction()->id,
+					'controllerAction' => $controllerId.' / '.$this->getController()->getAction()->id,
 				);
 			} else {
 				$this->_cmsInfo = array(
