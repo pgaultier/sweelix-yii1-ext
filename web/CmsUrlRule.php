@@ -54,9 +54,14 @@ class CmsUrlRule extends CBaseUrlRule {
 	public $urlSuffix;
 
 	/**
-	 * @var string  suffix used for faked url
+	 * @var string table used for urls
 	 */
 	public $table = '{{urls}}';
+
+	/**
+	 * @var bool check if we allow action while searching. can cause problems with nested URLs.
+	 */
+	public $allowActions = false;
 
 	/**
 	 * Retrieve an url from an encoded route return pretty url if found
@@ -71,6 +76,9 @@ class CmsUrlRule extends CBaseUrlRule {
 	 */
 	public function createUrl($manager, $route, $params, $ampersand) {
 		$prettyUrl = false;
+		$newRoute = preg_split('#/#', $route, -1, PREG_SPLIT_NO_EMPTY);
+		$route = $newRoute[0];
+		$action = isset($newRoute[1])?$newRoute[1]:null;
 		if(($decodedRoute = RouteEncoder::decode($route)) !== false) {
 			$url = null;
 			list($contentId, $nodeId, $tagId, $groupId) = $decodedRoute;
@@ -97,7 +105,11 @@ class CmsUrlRule extends CBaseUrlRule {
 						->where('urlElementType = :urlElementType AND urlElementId = :urlElementId', [':urlElementType' => $elementType, ':urlElementId' => $elementId])
 						->queryRow();
 				if($url !== false) {
-					$prettyUrl = $url['urlValue'].$this->urlSuffix;
+					if($action !== null) {
+						$prettyUrl = $url['urlValue'].'/'.$action.$this->urlSuffix;
+					} else {
+						$prettyUrl = $url['urlValue'].$this->urlSuffix;
+					}
 					if ((empty($params) === false) && (($query = http_build_query($params, '', $ampersand)) !== '')) {
             			$prettyUrl .= '?' . $query;
 					}
@@ -137,6 +149,16 @@ class CmsUrlRule extends CBaseUrlRule {
 						->from($this->table)
 						->where('urlValue = :urlValue', [':urlValue' => $pathInfo])
 						->queryRow();
+				if(($url === false) && ($this->allowActions === true)) {
+					$newPathinfo = preg_split('#/#', $pathInfo, -1, PREG_SPLIT_NO_EMPTY);
+					$action = array_pop($newPathinfo);
+					$pathInfo = implode('/', $newPathinfo);
+					$url = Yii::app()->db->createCommand()
+						->select('urlElementId, urlElementType, urlValue')
+						->from($this->table)
+						->where('urlValue = :urlValue', [':urlValue' => $pathInfo])
+						->queryRow();
+				}
 				if($url !== false) {
 					$contentId = null;
 					$nodeId = null;
@@ -157,6 +179,9 @@ class CmsUrlRule extends CBaseUrlRule {
 						break;
 					}
 					$prettyUrl = RouteEncoder::encode($contentId, $nodeId, $tagId, $groupId);
+					if(($this->allowActions === true) && (isset($action) === true)) {
+						$prettyUrl = $prettyUrl.'/'.$action;
+					}
 				}
             }
 		}

@@ -93,7 +93,7 @@ class Info extends \CWidget {
 					switch($info) {
 						case 'sweelix' :
 							$infoBlock .= \CHtml::tag('li', $this->_subOptions,
-									Sweext::getLink(array('style' => 'color:#333', 'target'=>'_blank')).' '.Sweext::getVersion()
+									Ext::getLink(array('style' => 'color:#333', 'target'=>'_blank')).' '.Ext::getVersion()
 								);
 							break;
 						case 'nodeId' :

@@ -104,6 +104,8 @@ class CmsMapper extends CComponent implements ArrayAccess {
 				'nodeId' => $data[1],
 				'tagId' => $data[2],
 				'groupId' => $data[3],
+				'cmsGenerated' => true,
+				'cmsId' => lcfirst($controller),
 			];
 			if(empty($action) === false) {
 				$mappedController['defaultAction'] = $action;
