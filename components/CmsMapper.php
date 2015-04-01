@@ -104,8 +104,6 @@ class CmsMapper extends CComponent implements ArrayAccess {
 				'nodeId' => $data[1],
 				'tagId' => $data[2],
 				'groupId' => $data[3],
-				'cmsGenerated' => true,
-				'cmsId' => lcfirst($controller),
 			];
 			if(empty($action) === false) {
 				$mappedController['defaultAction'] = $action;
@@ -215,18 +213,20 @@ class CmsMapper extends CComponent implements ArrayAccess {
 									}
 									break;
 								case 'first':
-									$finished = true;
+                                    $finished = true;
 									$cmsData[1] = $element->nodeId;
 
 									$criteriaBuilder = new CriteriaBuilder('content');
 									$criteriaBuilder->published();
-									$criteriaBuilder->filterBy('nodeId', $element->nodeId);
-									$criteriaBuilder->orderBy('contentOrder');
+									$criteriaBuilder->filterBy('nodeLeftId', $element->nodeLeftId, '>=');
+                                    $criteriaBuilder->filterBy('nodeRightId', $element->nodeRightId, '<=');
+                                    $criteriaBuilder->orderBy('nodeLeftId');
+                                    $criteriaBuilder->orderBy('contentOrder');
 
 									if($criteriaBuilder->count()>0) {
 										$content = $criteriaBuilder->find();
 										if($content->template !== null) {
-											list($controllerRoute, $actionRoute) = self::buildRouteFromTemplate($content->template);
+											list($controller, $action) = self::buildRouteFromTemplate($content->template);
 											$cmsData[0] = $content->contentId;
 											if((Yii::app()->cache !== null)) {
 												Yii::app()->cache->set($cacheKey, array('cmsData'=>$cmsData, 'controller' => $controllerRoute, 'action' => $actionRoute), self::$CACHE_EXPIRE );
