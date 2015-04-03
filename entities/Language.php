@@ -14,6 +14,7 @@
  */
 
 namespace sweelix\yii1\ext\entities;
+
 use sweelix\yii1\ext\db\ar\Language as ActiveRecordLanguage;
 
 /**
@@ -35,33 +36,36 @@ use sweelix\yii1\ext\db\ar\Language as ActiveRecordLanguage;
  * @property Group[]   $groups
  * @property Tag[]     $tags
  */
-class Language extends ActiveRecordLanguage {
-	/**
-	 * Returns the static model of the specified AR class.
-	 *
-	 * @param string $className entity classname automatically set
-	 *
-	 * @return Language the static model class
-	 * @since  1.0.0
-	 */
-	public static function model($className=__CLASS__) {
-		return parent::model($className);
-	}
+class Language extends ActiveRecordLanguage
+{
+    /**
+     * Returns the static model of the specified AR class.
+     *
+     * @param string $className entity classname automatically set
+     *
+     * @return Language the static model class
+     * @since  1.0.0
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * The followings are the available model relations:
-	 *
-	 * @return array relational rules.
-	 * @since  1.0.0
-	 */
-	public function relations() {
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'authors' => array(self::HAS_MANY, 'sweelix\yii1\ext\entities\Author', 'languageId'),
-			'contents' => array(self::HAS_MANY, 'sweelix\yii1\ext\entities\Content', 'languageId'),
-			'groups' => array(self::HAS_MANY, 'sweelix\yii1\ext\entities\Group', 'languageId'),
-			'tags' => array(self::HAS_MANY, 'sweelix\yii1\ext\entities\Tag', 'languageId'),
-		);
-	}
+    /**
+     * The followings are the available model relations:
+     *
+     * @return array relational rules.
+     * @since  1.0.0
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'authors' => array(self::HAS_MANY, 'sweelix\yii1\ext\entities\Author', 'languageId'),
+            'contents' => array(self::HAS_MANY, 'sweelix\yii1\ext\entities\Content', 'languageId'),
+            'groups' => array(self::HAS_MANY, 'sweelix\yii1\ext\entities\Group', 'languageId'),
+            'tags' => array(self::HAS_MANY, 'sweelix\yii1\ext\entities\Tag', 'languageId'),
+        );
+    }
 }

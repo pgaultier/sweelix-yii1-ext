@@ -15,6 +15,8 @@
 
 namespace sweelix\yii1\ext\migrations;
 
+use CDbMigration;
+
 /**
  * Class m131121_080000_upgradeDatabaseTo21
  *
@@ -30,45 +32,47 @@ namespace sweelix\yii1\ext\migrations;
  * @package   sweelix.yii1.ext.migrations
  * @since     2.1.0
  */
-class m131121_080000_upgradeDatabaseTo21 extends \CDbMigration {
+class m131121_080000_upgradeDatabaseTo21 extends CDbMigration
+{
 
-	/**
-	 * Initialize database
-	 *
-	 * @return void
-	 * @since  2.1.0
-	 */
-	public function up() {
-		$table = $this->dbConnection->getSchema()->getTable('{{contents}}');
-		if(isset($table->columns['contentCreateDate']) === false) {
-			$this->addColumn('{{contents}}', 'contentCreateDate', 'datetime AFTER contentViewed');
-			$this->addColumn('{{contents}}', 'contentUpdateDate', 'datetime AFTER contentCreateDate');
-		}
-		$table = $this->dbConnection->getSchema()->getTable('{{nodes}}');
-		if(isset($table->columns['nodeCreateDate']) === false) {
-			$this->addColumn('{{nodes}}', 'nodeCreateDate', 'datetime AFTER nodeViewed');
-			$this->addColumn('{{nodes}}', 'nodeUpdateDate', 'datetime AFTER nodeCreateDate');
-		}
-		$table = $this->dbConnection->getSchema()->getTable('{{groups}}');
-		if(isset($table->columns['groupCreateDate']) === false) {
-			$this->addColumn('{{groups}}', 'groupCreateDate', 'datetime AFTER groupData');
-			$this->addColumn('{{groups}}', 'groupUpdateDate', 'datetime AFTER groupCreateDate');
-		}
-		$table = $this->dbConnection->getSchema()->getTable('{{tags}}');
-		if(isset($table->columns['tagCreateDate']) === false) {
-			$this->addColumn('{{tags}}', 'tagCreateDate', 'datetime AFTER tagData');
-			$this->addColumn('{{tags}}', 'tagUpdateDate', 'datetime AFTER tagCreateDate');
-		}
-		$this->alterColumn('{{contents}}', 'contentStartDate', 'datetime');
-		$this->alterColumn('{{contents}}', 'contentEndDate', 'datetime');
+    /**
+     * Initialize database
+     *
+     * @return void
+     * @since  2.1.0
+     */
+    public function up()
+    {
+        $table = $this->dbConnection->getSchema()->getTable('{{contents}}');
+        if (isset($table->columns['contentCreateDate']) === false) {
+            $this->addColumn('{{contents}}', 'contentCreateDate', 'datetime AFTER contentViewed');
+            $this->addColumn('{{contents}}', 'contentUpdateDate', 'datetime AFTER contentCreateDate');
+        }
+        $table = $this->dbConnection->getSchema()->getTable('{{nodes}}');
+        if (isset($table->columns['nodeCreateDate']) === false) {
+            $this->addColumn('{{nodes}}', 'nodeCreateDate', 'datetime AFTER nodeViewed');
+            $this->addColumn('{{nodes}}', 'nodeUpdateDate', 'datetime AFTER nodeCreateDate');
+        }
+        $table = $this->dbConnection->getSchema()->getTable('{{groups}}');
+        if (isset($table->columns['groupCreateDate']) === false) {
+            $this->addColumn('{{groups}}', 'groupCreateDate', 'datetime AFTER groupData');
+            $this->addColumn('{{groups}}', 'groupUpdateDate', 'datetime AFTER groupCreateDate');
+        }
+        $table = $this->dbConnection->getSchema()->getTable('{{tags}}');
+        if (isset($table->columns['tagCreateDate']) === false) {
+            $this->addColumn('{{tags}}', 'tagCreateDate', 'datetime AFTER tagData');
+            $this->addColumn('{{tags}}', 'tagUpdateDate', 'datetime AFTER tagCreateDate');
+        }
+        $this->alterColumn('{{contents}}', 'contentStartDate', 'datetime');
+        $this->alterColumn('{{contents}}', 'contentEndDate', 'datetime');
 
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spContentMove')->execute();
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spContentReorder')->execute();
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeDelete')->execute();
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeInsert')->execute();
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeMove')->execute();
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spFlushUrl')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spContentMove(
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spContentMove')->execute();
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spContentReorder')->execute();
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeDelete')->execute();
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeInsert')->execute();
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeMove')->execute();
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spFlushUrl')->execute();
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spContentMove(
 				IN inSourceContentId BIGINT(20),
 				IN inWhere ENUM(\'top\', \'bottom\', \'up\', \'down\', \'before\', \'after\'),
 				IN inTargetContentId BIGINT(20)
@@ -121,7 +125,7 @@ class m131121_080000_upgradeDatabaseTo21 extends \CDbMigration {
 				CALL spContentReorder(sourceNodeId);
 				SELECT * FROM contents WHERE contentId = inSourceContentId;
 			END')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spContentReorder(
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spContentReorder(
 			IN inSourceNodeId BIGINT(20)
 			)
 				MODIFIES SQL DATA
@@ -147,7 +151,7 @@ class m131121_080000_upgradeDatabaseTo21 extends \CDbMigration {
 				UNTIL done END REPEAT;
 				CLOSE contentList;
 			END')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeDelete(
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeDelete(
 				IN inTargetNodeId bigint(20),
 				IN inReturnList INT
 			)
@@ -190,7 +194,7 @@ class m131121_080000_upgradeDatabaseTo21 extends \CDbMigration {
 				END IF;
 				DROP TABLE tmpDeletedNodes;
 			END')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeInsert(
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeInsert(
 				IN inTargetNodeId bigint(20),
 				IN inNodeTitle text,
 				IN inNodeUrl varchar(255),
@@ -260,7 +264,7 @@ class m131121_080000_upgradeDatabaseTo21 extends \CDbMigration {
 					/* CALL sp_build_url(LAST_INSERT_ID(), inNodeTitle, \'NODE\', 0); */
 				SELECT * FROM nodes where nodeId = LAST_INSERT_ID();
 			END')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeMove(
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeMove(
 				IN inSourceNodeId BIGINT(20),
 				IN inTargetNodeId BIGINT(20),
 				IN inWhere ENUM (\'in\', \'before\', \'after\')
@@ -424,7 +428,7 @@ class m131121_080000_upgradeDatabaseTo21 extends \CDbMigration {
 				FROM nodes
 				WHERE nodeId = inSourceNodeId;
 			END')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spFlushUrl ()
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spFlushUrl ()
 				MODIFIES SQL DATA
 			BEGIN
 				DECLARE elementId BIGINT(20) DEFAULT 0;
@@ -546,45 +550,46 @@ class m131121_080000_upgradeDatabaseTo21 extends \CDbMigration {
 				UNTIL done END REPEAT;
 				CLOSE groupList;
 			END')->execute();
-	}
+    }
 
-	/**
-	 * Downgrade database.
-	 *
-	 * @return void
-	 * @since  2.1.0
-	 */
-	public function down() {
-		$table = $this->dbConnection->getSchema()->getTable('{{contents}}');
-		if(isset($table->columns['contentCreateDate']) === true) {
-			$this->dropColumn('{{contents}}', 'contentCreateDate');
-			$this->dropColumn('{{contents}}', 'contentUpdateDate');
-		}
-		$table = $this->dbConnection->getSchema()->getTable('{{nodes}}');
-		if(isset($table->columns['nodeCreateDate']) === true) {
-			$this->dropColumn('{{nodes}}', 'nodeCreateDate');
-			$this->dropColumn('{{nodes}}', 'nodeUpdateDate');
-		}
-		$table = $this->dbConnection->getSchema()->getTable('{{groups}}');
-		if(isset($table->columns['groupCreateDate']) === true) {
-			$this->dropColumn('{{groups}}', 'groupCreateDate');
-			$this->dropColumn('{{groups}}', 'groupUpdateDate');
-		}
-		$table = $this->dbConnection->getSchema()->getTable('{{tags}}');
-		if(isset($table->columns['tagCreateDate']) === true) {
-			$this->dropColumn('{{tags}}', 'tagCreateDate');
-			$this->dropColumn('{{tags}}', 'tagUpdateDate');
-		}
-		$this->alterColumn('{{contents}}', 'contentStartDate', 'date');
-		$this->alterColumn('{{contents}}', 'contentEndDate', 'date');
+    /**
+     * Downgrade database.
+     *
+     * @return void
+     * @since  2.1.0
+     */
+    public function down()
+    {
+        $table = $this->dbConnection->getSchema()->getTable('{{contents}}');
+        if (isset($table->columns['contentCreateDate']) === true) {
+            $this->dropColumn('{{contents}}', 'contentCreateDate');
+            $this->dropColumn('{{contents}}', 'contentUpdateDate');
+        }
+        $table = $this->dbConnection->getSchema()->getTable('{{nodes}}');
+        if (isset($table->columns['nodeCreateDate']) === true) {
+            $this->dropColumn('{{nodes}}', 'nodeCreateDate');
+            $this->dropColumn('{{nodes}}', 'nodeUpdateDate');
+        }
+        $table = $this->dbConnection->getSchema()->getTable('{{groups}}');
+        if (isset($table->columns['groupCreateDate']) === true) {
+            $this->dropColumn('{{groups}}', 'groupCreateDate');
+            $this->dropColumn('{{groups}}', 'groupUpdateDate');
+        }
+        $table = $this->dbConnection->getSchema()->getTable('{{tags}}');
+        if (isset($table->columns['tagCreateDate']) === true) {
+            $this->dropColumn('{{tags}}', 'tagCreateDate');
+            $this->dropColumn('{{tags}}', 'tagUpdateDate');
+        }
+        $this->alterColumn('{{contents}}', 'contentStartDate', 'date');
+        $this->alterColumn('{{contents}}', 'contentEndDate', 'date');
 
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spContentMove')->execute();
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spContentReorder')->execute();
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeDelete')->execute();
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeInsert')->execute();
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeMove')->execute();
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spFlushUrl')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spContentMove(
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spContentMove')->execute();
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spContentReorder')->execute();
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeDelete')->execute();
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeInsert')->execute();
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeMove')->execute();
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spFlushUrl')->execute();
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spContentMove(
 				IN inSourceContentId BIGINT(20),
 				IN inWhere ENUM(\'top\', \'bottom\', \'up\', \'down\', \'before\', \'after\'),
 				IN inTargetContentId BIGINT(20)
@@ -637,7 +642,7 @@ class m131121_080000_upgradeDatabaseTo21 extends \CDbMigration {
 				CALL spContentReorder(sourceNodeId);
 				SELECT * FROM contents WHERE contentId = inSourceContentId;
 			END')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spContentReorder(
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spContentReorder(
 			IN inSourceNodeId BIGINT(20)
 			)
 				MODIFIES SQL DATA
@@ -663,7 +668,7 @@ class m131121_080000_upgradeDatabaseTo21 extends \CDbMigration {
 				UNTIL done END REPEAT;
 				CLOSE contentList;
 			END')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeDelete(
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeDelete(
 				IN inTargetNodeId bigint(20),
 				IN inReturnList INT
 			)
@@ -706,7 +711,7 @@ class m131121_080000_upgradeDatabaseTo21 extends \CDbMigration {
 				END IF;
 				DROP TABLE tmpDeletedNodes;
 			END')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeInsert(
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeInsert(
 				IN inTargetNodeId bigint(20),
 				IN inNodeTitle text,
 				IN inNodeUrl varchar(255),
@@ -773,7 +778,7 @@ class m131121_080000_upgradeDatabaseTo21 extends \CDbMigration {
 					/* CALL sp_build_url(LAST_INSERT_ID(), inNodeTitle, \'NODE\', 0); */
 				SELECT * FROM nodes where nodeId = LAST_INSERT_ID();
 			END')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeMove(
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeMove(
 				IN inSourceNodeId BIGINT(20),
 				IN inTargetNodeId BIGINT(20),
 				IN inWhere ENUM (\'in\', \'before\', \'after\')
@@ -935,7 +940,7 @@ class m131121_080000_upgradeDatabaseTo21 extends \CDbMigration {
 				FROM nodes
 				WHERE nodeId = inSourceNodeId;
 			END')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spFlushUrl ()
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spFlushUrl ()
 				MODIFIES SQL DATA
 			BEGIN
 				DECLARE elementId BIGINT(20) DEFAULT 0;
@@ -1058,7 +1063,5 @@ class m131121_080000_upgradeDatabaseTo21 extends \CDbMigration {
 				CLOSE groupList;
 			END')->execute();
 
-	}
+    }
 }
-
-

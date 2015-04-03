@@ -14,6 +14,7 @@
  */
 
 namespace sweelix\yii1\ext\entities;
+
 use sweelix\yii1\ext\db\ar\Author as ActiveRecordAuthor;
 
 /**
@@ -35,32 +36,35 @@ use sweelix\yii1\ext\db\ar\Author as ActiveRecordAuthor;
  * @property Node[]    $nodes
  *
  */
-class Author extends ActiveRecordAuthor {
-	/**
-	 * Returns the static model of the specified AR class.
-	 *
-	 * @param string $className entity classname automatically set
-	 *
-	 * @return Author the static model class
-	 * @since  1.0.0
-	 */
-	public static function model($className=__CLASS__) {
-		return parent::model($className);
-	}
+class Author extends ActiveRecordAuthor
+{
+    /**
+     * Returns the static model of the specified AR class.
+     *
+     * @param string $className entity classname automatically set
+     *
+     * @return Author the static model class
+     * @since  1.0.0
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * The followings are the available model relations:
-	 *
-	 * @return array relational rules.
-	 * @since  1.0.0
-	 */
-	public function relations() {
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'language' => array(self::BELONGS_TO, 'sweelix\yii1\ext\entities\Language', 'languageId'),
-			'contents' => array(self::HAS_MANY, 'sweelix\yii1\ext\entities\Content', 'authorId'),
-			'nodes' => array(self::HAS_MANY, 'sweelix\yii1\ext\entities\Node', 'authorId'),
-		);
-	}
+    /**
+     * The followings are the available model relations:
+     *
+     * @return array relational rules.
+     * @since  1.0.0
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'language' => array(self::BELONGS_TO, 'sweelix\yii1\ext\entities\Language', 'languageId'),
+            'contents' => array(self::HAS_MANY, 'sweelix\yii1\ext\entities\Content', 'authorId'),
+            'nodes' => array(self::HAS_MANY, 'sweelix\yii1\ext\entities\Node', 'authorId'),
+        );
+    }
 }

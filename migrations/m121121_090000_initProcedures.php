@@ -15,6 +15,8 @@
 
 namespace sweelix\yii1\ext\migrations;
 
+use CDbMigration;
+
 /**
  * Class m121121_090000_initProcedures
  *
@@ -29,15 +31,17 @@ namespace sweelix\yii1\ext\migrations;
  * @package   sweelix.yii1.ext.migrations
  * @since     2.0.0
  */
-class m121121_090000_initProcedures extends \CDbMigration {
+class m121121_090000_initProcedures extends CDbMigration
+{
 
-	/**
-	 * Initialize database
-	 *
-	 * @return void
-	 */
-	public function up() {
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spContentMove(
+    /**
+     * Initialize database
+     *
+     * @return void
+     */
+    public function up()
+    {
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spContentMove(
 				IN inSourceContentId BIGINT(20),
 				IN inWhere ENUM(\'top\', \'bottom\', \'up\', \'down\', \'before\', \'after\'),
 				IN inTargetContentId BIGINT(20)
@@ -90,7 +94,7 @@ class m121121_090000_initProcedures extends \CDbMigration {
 				CALL spContentReorder(sourceNodeId);
 				SELECT * FROM contents WHERE contentId = inSourceContentId;
 			END')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spContentReorder(
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spContentReorder(
 			IN inSourceNodeId BIGINT(20)
 			)
 				MODIFIES SQL DATA
@@ -116,7 +120,7 @@ class m121121_090000_initProcedures extends \CDbMigration {
 				UNTIL done END REPEAT;
 				CLOSE contentList;
 			END')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeDelete(
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeDelete(
 				IN inTargetNodeId bigint(20),
 				IN inReturnList INT
 			)
@@ -159,7 +163,7 @@ class m121121_090000_initProcedures extends \CDbMigration {
 				END IF;
 				DROP TABLE tmpDeletedNodes;
 			END')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeInsert(
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeInsert(
 				IN inTargetNodeId bigint(20),
 				IN inNodeTitle text,
 				IN inNodeUrl varchar(255),
@@ -226,7 +230,7 @@ class m121121_090000_initProcedures extends \CDbMigration {
 					/* CALL sp_build_url(LAST_INSERT_ID(), inNodeTitle, \'NODE\', 0); */
 				SELECT * FROM nodes where nodeId = LAST_INSERT_ID();
 			END')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeMove(
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spNodeMove(
 				IN inSourceNodeId BIGINT(20),
 				IN inTargetNodeId BIGINT(20),
 				IN inWhere ENUM (\'in\', \'before\', \'after\')
@@ -388,7 +392,7 @@ class m121121_090000_initProcedures extends \CDbMigration {
 				FROM nodes
 				WHERE nodeId = inSourceNodeId;
 			END')->execute();
-		$this->getDbConnection()->createCommand('CREATE PROCEDURE spFlushUrl ()
+        $this->getDbConnection()->createCommand('CREATE PROCEDURE spFlushUrl ()
 				MODIFIES SQL DATA
 			BEGIN
 				DECLARE elementId BIGINT(20) DEFAULT 0;
@@ -511,21 +515,20 @@ class m121121_090000_initProcedures extends \CDbMigration {
 				CLOSE groupList;
 			END')->execute();
 
-		}
+    }
 
-	/**
-	 * Un-initialize database. Drop everything to get an empty DB
-	 *
-	 * @return void
-	 */
-	public function down() {
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spContentMove')->execute();
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spContentReorder')->execute();
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeDelete')->execute();
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeInsert')->execute();
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeMove')->execute();
-		$this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spFlushUrl')->execute();
-	}
+    /**
+     * Un-initialize database. Drop everything to get an empty DB
+     *
+     * @return void
+     */
+    public function down()
+    {
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spContentMove')->execute();
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spContentReorder')->execute();
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeDelete')->execute();
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeInsert')->execute();
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spNodeMove')->execute();
+        $this->getDbConnection()->createCommand('DROP PROCEDURE IF EXISTS spFlushUrl')->execute();
+    }
 }
-
-
