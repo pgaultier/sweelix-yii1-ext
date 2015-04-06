@@ -71,8 +71,9 @@ class CmsUrlRule extends CBaseUrlRule
      * @param \CUrlManager $manager current url manager
      * @param string $route route to check
      * @param array $params additional parameters
+     * @param string $ampersand
      *
-     * @return mixed
+     * @return bool|string
      * @since  3.1.0
      */
     public function createUrl($manager, $route, $params, $ampersand)
@@ -84,6 +85,8 @@ class CmsUrlRule extends CBaseUrlRule
         if (($decodedRoute = RouteEncoder::decode($route)) !== false) {
             $url = null;
             list($contentId, $nodeId, $tagId, $groupId) = $decodedRoute;
+            $elementId = null;
+            $elementType = null;
             if ($contentId !== null) {
                 $elementId = $contentId;
                 $elementType = 'content';
@@ -129,8 +132,10 @@ class CmsUrlRule extends CBaseUrlRule
      *
      * @param \CUrlManager $manager current url manager
      * @param \CHttpRequest $request current request
+     * @param string $pathInfo
+     * @param string $rawPathInfo
      *
-     * @return mixed
+     * @return bool|string
      * @since  3.1.0
      */
     public function parseUrl($manager, $request, $pathInfo, $rawPathInfo)

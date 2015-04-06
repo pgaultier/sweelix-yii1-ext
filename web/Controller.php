@@ -21,6 +21,7 @@ use sweelix\yii1\ext\entities\Group;
 use sweelix\yii1\ext\entities\Tag;
 use sweelix\yii1\ext\components\RouteEncoder;
 use CController;
+use Yii;
 
 /**
  * This Controller class handle everything to retrieve the elements
