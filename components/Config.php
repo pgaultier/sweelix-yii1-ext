@@ -22,12 +22,12 @@ namespace sweelix\yii1\ext\components;
  * correct module.
  *
  * <code>
- * 	'components' => array(
- * 		...
- * 		'sweelix' => array(
- * 			'class'=>'sweelix\yii1\ext\components\Config',
- * 		),
- * 		...
+ *    'components' => array(
+ *        ...
+ *        'sweelix' => array(
+ *            'class'=>'sweelix\yii1\ext\components\Config',
+ *        ),
+ *        ...
  * </code>
  *
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
@@ -38,54 +38,62 @@ namespace sweelix\yii1\ext\components;
  * @category  components
  * @package   sweelix.yii1.ext.components
  * @since     1.2.0
- *
- * @property string urlPattern
  */
-class Config extends \CApplicationComponent {
-	/**
-	 * Return current version
-	 *
-	 * @return string
-	 * @since  1.2.0
-	 */
-	public static function getVersion() {
-		return '3.2.0-beta';
-	}
-	/**
-	 * Return product info
-	 *
-	 * @return string
-	 * @since  1.2.0
-	 */
-	public static function getLink($htmlOptions=array()) {
-		if(isset($htmlOptions['title']) === false) {
-			$htmlOptions['title'] = 'Sweelix';
-		}
-		return \CHtml::link('Sweelix', 'http://www.sweelix.net', $htmlOptions);
-	}
-	private $_urlPattern;
-	/**
-	 * Define filtering pattern
-	 *
-	 * @param string $pattern regular expression with / (ex: /[^\.a-z0-9_-]+/i)
-	 *
-	 * @return void
-	 * @since  1.8.0
-	 */
-	public function setUrlPattern($pattern) {
-		$this->_urlPattern = $pattern;
-	}
+class Config extends \CApplicationComponent
+{
+    /**
+     * Return current version
+     *
+     * @return string
+     * @since  1.2.0
+     */
+    public static function getVersion()
+    {
+        return '3.2.0-beta';
+    }
 
-	/**
-	 * Get defined filtering pattern for cms url
-	 *
-	 * @return string
-	 * @since  1.8.0
-	 */
-	public function getUrlPattern() {
-		if($this->_urlPattern === null) {
-			$this->_urlPattern = '/[^\.a-z0-9_-]+/i';
-		}
-		return $this->_urlPattern;
-	}
+    /**
+     * Return product info
+     *
+     * @param array $htmlOptions
+     *
+     * @return string
+     * @since  1.2.0
+     */
+    public static function getLink($htmlOptions = array())
+    {
+        if (isset($htmlOptions['title']) === false) {
+            $htmlOptions['title'] = 'Sweelix';
+        }
+        return \CHtml::link('Sweelix', 'http://www.sweelix.net', $htmlOptions);
+    }
+
+    private $urlPattern;
+
+    /**
+     * Define filtering pattern
+     *
+     * @param string $pattern regular expression with / (ex: /[^\.a-z0-9_-]+/i)
+     *
+     * @return void
+     * @since  1.8.0
+     */
+    public function setUrlPattern($pattern)
+    {
+        $this->urlPattern = $pattern;
+    }
+
+    /**
+     * Get defined filtering pattern for cms url
+     *
+     * @return string
+     * @since  1.8.0
+     */
+    public function getUrlPattern()
+    {
+        if ($this->urlPattern === null) {
+            $this->urlPattern = '/[^\.a-z0-9_-]+/i';
+        }
+        return $this->urlPattern;
+    }
 }

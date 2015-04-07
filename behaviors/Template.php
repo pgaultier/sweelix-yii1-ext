@@ -15,6 +15,8 @@
 
 namespace sweelix\yii1\ext\behaviors;
 
+use Yii;
+
 /**
  * This class handle template related information
  *
@@ -76,10 +78,10 @@ class Template extends \CBehavior
     protected function getTemplateData($templateId, $mode = 'definition')
     {
         if ((self::$_templateDefinitions === null)) {
-            if ((\Yii::app()->cache !== null) && (($cachedData = \Yii::app()->cache->get(self::CACHE_KEY_TEMPLATE)) !== false)) {
+            if ((Yii::app()->cache !== null) && (($cachedData = Yii::app()->cache->get(self::CACHE_KEY_TEMPLATE)) !== false)) {
                 self::$_templateDefinitions = $cachedData;
             } else {
-                $templates = \Yii::app()->getDb()->createCommand()->select('templateId, templateDefinition, templateComposite')
+                $templates = Yii::app()->getDb()->createCommand()->select('templateId, templateDefinition, templateComposite')
                     ->from('templates')
                     ->queryAll(false);
                 foreach ($templates as $template) {
@@ -88,8 +90,8 @@ class Template extends \CBehavior
                         'composite' => empty($template[2]) ? false : $template[2]
                     );
                 }
-                if ((\Yii::app()->cache !== null)) {
-                    \Yii::app()->cache->set(self::CACHE_KEY_TEMPLATE, self::$_templateDefinitions, self::$_expire);
+                if ((Yii::app()->cache !== null)) {
+                    Yii::app()->cache->set(self::CACHE_KEY_TEMPLATE, self::$_templateDefinitions, self::$_expire);
                 }
             }
         }
@@ -105,8 +107,8 @@ class Template extends \CBehavior
     public function resetTemplateData()
     {
         self::$_templateDefinitions = null;
-        if ((\Yii::app()->cache !== null) && (($cachedData = \Yii::app()->cache->get(self::CACHE_KEY_TEMPLATE)) !== false)) {
-            \Yii::app()->cache->delete(self::CACHE_KEY_TEMPLATE);
+        if ((Yii::app()->cache !== null) && (($cachedData = Yii::app()->cache->get(self::CACHE_KEY_TEMPLATE)) !== false)) {
+            Yii::app()->cache->delete(self::CACHE_KEY_TEMPLATE);
         }
     }
 
@@ -135,10 +137,10 @@ class Template extends \CBehavior
     {
         $cacheKey = self::CACHE_KEY_SUB_PROPERTIES . ':' . $templateId;
         if ((self::$_subProperties === null) || (key_exists($templateId, self::$_subProperties) === false)) {
-            if ((\Yii::app()->cache !== null) && (($cachedData = \Yii::app()->cache->get($cacheKey)) !== false)) {
+            if ((Yii::app()->cache !== null) && (($cachedData = Yii::app()->cache->get($cacheKey)) !== false)) {
                 self::$_subProperties[$templateId] = $cachedData;
             } else {
-                $path = \Yii::getPathOfAlias($this->templatesDefinitionsAlias) . DIRECTORY_SEPARATOR . $this->getTemplateData($templateId,
+                $path = Yii::getPathOfAlias($this->templatesDefinitionsAlias) . DIRECTORY_SEPARATOR . $this->getTemplateData($templateId,
                         'definition') . '.php';
                 if (file_exists($path) === true) {
                     $tplData = require($path);
@@ -146,8 +148,8 @@ class Template extends \CBehavior
                 } else {
                     self::$_subProperties[$templateId] = array();
                 }
-                if ((\Yii::app()->cache !== null)) {
-                    \Yii::app()->cache->set($cacheKey, self::$_subProperties[$templateId], self::$_expire);
+                if ((Yii::app()->cache !== null)) {
+                    Yii::app()->cache->set($cacheKey, self::$_subProperties[$templateId], self::$_expire);
                 }
             }
         }
@@ -166,7 +168,7 @@ class Template extends \CBehavior
     public function getTemplateDefinition($templateId)
     {
         $tplData = array();
-        $path = \Yii::getPathOfAlias($this->templatesDefinitionsAlias) . DIRECTORY_SEPARATOR . $this->getTemplateData($templateId,
+        $path = Yii::getPathOfAlias($this->templatesDefinitionsAlias) . DIRECTORY_SEPARATOR . $this->getTemplateData($templateId,
                 'definition') . '.php';
         if (file_exists($path) === true) {
             $tplData = require($path);
@@ -187,7 +189,7 @@ class Template extends \CBehavior
     public function getRenderingTemplate($templateId)
     {
         $tplData = false;
-        $path = \Yii::getPathOfAlias($this->templatesDefinitionsAlias) . DIRECTORY_SEPARATOR . $this->getTemplateData($templateId,
+        $path = Yii::getPathOfAlias($this->templatesDefinitionsAlias) . DIRECTORY_SEPARATOR . $this->getTemplateData($templateId,
                 'definition') . '.tpl.php';
         if (file_exists($path) === true) {
             $tplData = $path;

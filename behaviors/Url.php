@@ -685,5 +685,4 @@ class Url extends \CActiveRecordBehavior
         "þ" => "th",
         "Þ" => "TH"
     );
-
 }

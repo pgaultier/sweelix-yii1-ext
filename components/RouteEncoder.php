@@ -114,7 +114,7 @@ class RouteEncoder
                 if (($header & 0x1) === 0x1) {
                     $groupId = self::subDecode($route, $offset);
                 }
-                $result = [$contentId, $nodeId, $tagId, $groupId];
+                $result = array($contentId, $nodeId, $tagId, $groupId);
             } else {
                 $result = false;
             }

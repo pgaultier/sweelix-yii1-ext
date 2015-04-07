@@ -53,96 +53,106 @@ namespace sweelix\yii1\ext\db\ar;
  * @property Node[]    $nodes
  * @property Template  $template
  */
-class Node extends \CActiveRecord {
-	/**
-	 * Returns the static model of the specified AR class.
-	 *
-	 * @param string $className entity classname automatically set
-	 *
-	 * @return Node the static model class
-	 * @since  1.0.0
-	 */
-	public static function model($className=__CLASS__) {
-		return parent::model($className);
-	}
+class Node extends \CActiveRecord
+{
+    /**
+     * Returns the static model of the specified AR class.
+     *
+     * @param string $className entity classname automatically set
+     *
+     * @return Node the static model class
+     * @since  1.0.0
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * Define table name
-	 *
-	 * @return string the associated database table name
-	 * @since  1.0.0
-	 */
-	public function tableName() {
-		if($this->getDbConnection()->tablePrefix === null) {
-			return 'nodes';
-		} else {
-			return '{{nodes}}';
-		}
-	}
+    /**
+     * Define table name
+     *
+     * @return string the associated database table name
+     * @since  1.0.0
+     */
+    public function tableName()
+    {
+        if ($this->getDbConnection()->tablePrefix === null) {
+            return 'nodes';
+        } else {
+            return '{{nodes}}';
+        }
+    }
 
-	/**
-	 * Business rules related to database
-	 *
-	 * @return array validation rules for model attributes.
-	 * @since  1.0.0
-	 */
-	public function rules() {
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('nodeTitle', 'required'),
-			array('nodeUrl', 'length', 'max'=>255),
-			array('nodeDisplayMode, languageId', 'length', 'max'=>8),
-			array('nodeRedirection, nodeLeftId, nodeRightId, nodeLevel, nodeViewed, authorId, templateId', 'length', 'max'=>20),
-			array('nodeStatus', 'length', 'max'=>7),
-			array('nodeData, nodeCreateDate, nodeUpdateDate, nodeLeftId, nodeRightId, nodeLevel', 'safe'),
-		);
-	}
+    /**
+     * Business rules related to database
+     *
+     * @return array validation rules for model attributes.
+     * @since  1.0.0
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('nodeTitle', 'required'),
+            array('nodeUrl', 'length', 'max' => 255),
+            array('nodeDisplayMode, languageId', 'length', 'max' => 8),
+            array(
+                'nodeRedirection, nodeLeftId, nodeRightId, nodeLevel, nodeViewed, authorId, templateId',
+                'length',
+                'max' => 20
+            ),
+            array('nodeStatus', 'length', 'max' => 7),
+            array('nodeData, nodeCreateDate, nodeUpdateDate, nodeLeftId, nodeRightId, nodeLevel', 'safe'),
+        );
+    }
 
-	/**
-	 * The followings are the available model relations:
-	 *
-	 * @return array relational rules.
-	 * @since  1.0.0
-	 */
-	public function relations() {
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'contents' => array(self::HAS_MANY, 'sweelix\yii1\ext\db\ar\Content', 'nodeId'),
-			'metas' => array(self::MANY_MANY, 'sweelix\yii1\ext\db\ar\Meta', 'nodeMeta(nodeId, metaId)'),
-			'tags' => array(self::MANY_MANY, 'sweelix\yii1\ext\db\ar\Tag', 'nodeTag(nodeId, tagId)'),
-			'author' => array(self::BELONGS_TO, 'sweelix\yii1\ext\db\ar\Author', 'authorId'),
-			'redirection' => array(self::BELONGS_TO, 'sweelix\yii1\ext\db\ar\Node', 'nodeRedirection'),
-			'nodes' => array(self::HAS_MANY, 'sweelix\yii1\ext\db\ar\Node', 'nodeRedirection'),
-			'template' => array(self::BELONGS_TO, 'sweelix\yii1\ext\db\ar\Template', 'templateId'),
-		);
-	}
+    /**
+     * The followings are the available model relations:
+     *
+     * @return array relational rules.
+     * @since  1.0.0
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'contents' => array(self::HAS_MANY, 'sweelix\yii1\ext\db\ar\Content', 'nodeId'),
+            'metas' => array(self::MANY_MANY, 'sweelix\yii1\ext\db\ar\Meta', 'nodeMeta(nodeId, metaId)'),
+            'tags' => array(self::MANY_MANY, 'sweelix\yii1\ext\db\ar\Tag', 'nodeTag(nodeId, tagId)'),
+            'author' => array(self::BELONGS_TO, 'sweelix\yii1\ext\db\ar\Author', 'authorId'),
+            'redirection' => array(self::BELONGS_TO, 'sweelix\yii1\ext\db\ar\Node', 'nodeRedirection'),
+            'nodes' => array(self::HAS_MANY, 'sweelix\yii1\ext\db\ar\Node', 'nodeRedirection'),
+            'template' => array(self::BELONGS_TO, 'sweelix\yii1\ext\db\ar\Template', 'templateId'),
+        );
+    }
 
-	/**
-	 * attributes labels
-	 *
-	 * @return array customized attribute labels (name=>label)
-	 * @since  1.0.0
-	 */
-	public function attributeLabels() {
-		return array(
-			'nodeId' => \Yii::t('sweelix', 'Node'),
-			'nodeTitle' => \Yii::t('sweelix', 'Node Title'),
-			'nodeUrl' => \Yii::t('sweelix', 'Node Url'),
-			'nodeData' => \Yii::t('sweelix', 'Node Data'),
-			'nodeCreateDate' => \Yii::t('sweelix', 'Node Create Date'),
-			'nodeUpdateDate' => \Yii::t('sweelix', 'Node Update Date'),
-			'nodeDisplayMode' => \Yii::t('sweelix', 'Node Display Mode'),
-			'nodeRedirection' => \Yii::t('sweelix', 'Node Redirection'),
-			'nodeLeftId' => \Yii::t('sweelix', 'Node Left'),
-			'nodeRightId' => \Yii::t('sweelix', 'Node Right'),
-			'nodeLevel' => \Yii::t('sweelix', 'Node Level'),
-			'nodeStatus' => \Yii::t('sweelix', 'Node Status'),
-			'nodeViewed' => \Yii::t('sweelix', 'Node Viewed'),
-			'authorId' => \Yii::t('sweelix', 'Author'),
-			'templateId' => \Yii::t('sweelix', 'Template'),
-			'languageId' => \Yii::t('sweelix', 'Language'),
-		);
-	}
+    /**
+     * attributes labels
+     *
+     * @return array customized attribute labels (name=>label)
+     * @since  1.0.0
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'nodeId' => \Yii::t('sweelix', 'Node'),
+            'nodeTitle' => \Yii::t('sweelix', 'Node Title'),
+            'nodeUrl' => \Yii::t('sweelix', 'Node Url'),
+            'nodeData' => \Yii::t('sweelix', 'Node Data'),
+            'nodeCreateDate' => \Yii::t('sweelix', 'Node Create Date'),
+            'nodeUpdateDate' => \Yii::t('sweelix', 'Node Update Date'),
+            'nodeDisplayMode' => \Yii::t('sweelix', 'Node Display Mode'),
+            'nodeRedirection' => \Yii::t('sweelix', 'Node Redirection'),
+            'nodeLeftId' => \Yii::t('sweelix', 'Node Left'),
+            'nodeRightId' => \Yii::t('sweelix', 'Node Right'),
+            'nodeLevel' => \Yii::t('sweelix', 'Node Level'),
+            'nodeStatus' => \Yii::t('sweelix', 'Node Status'),
+            'nodeViewed' => \Yii::t('sweelix', 'Node Viewed'),
+            'authorId' => \Yii::t('sweelix', 'Author'),
+            'templateId' => \Yii::t('sweelix', 'Template'),
+            'languageId' => \Yii::t('sweelix', 'Language'),
+        );
+    }
 }

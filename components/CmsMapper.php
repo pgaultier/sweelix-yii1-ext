@@ -148,7 +148,7 @@ class CmsMapper extends CComponent implements ArrayAccess
     /**
      * Find controller from template
      *
-     * @param Template $template template object
+     * @param \sweelix\yii1\ext\entities\Template $template template object
      *
      * @return string
      * @since  3.1.0

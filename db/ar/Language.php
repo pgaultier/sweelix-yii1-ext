@@ -35,78 +35,84 @@ namespace sweelix\yii1\ext\db\ar;
  * @property Group[]   $groups
  * @property Tag[]     $tags
  */
-class Language extends \CActiveRecord {
-	/**
-	 * Returns the static model of the specified AR class.
-	 *
-	 * @param string $className entity classname automatically set
-	 *
-	 * @return Language the static model class
-	 * @since  1.0.0
-	 */
-	public static function model($className=__CLASS__) {
-		return parent::model($className);
-	}
+class Language extends \CActiveRecord
+{
+    /**
+     * Returns the static model of the specified AR class.
+     *
+     * @param string $className entity classname automatically set
+     *
+     * @return Language the static model class
+     * @since  1.0.0
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * Define table name
-	 *
-	 * @return string the associated database table name
-	 * @since  1.0.0
-	 */
-	public function tableName() {
-		if($this->getDbConnection()->tablePrefix === null) {
-			return 'languages';
-		} else {
-			return '{{languages}}';
-		}
-	}
+    /**
+     * Define table name
+     *
+     * @return string the associated database table name
+     * @since  1.0.0
+     */
+    public function tableName()
+    {
+        if ($this->getDbConnection()->tablePrefix === null) {
+            return 'languages';
+        } else {
+            return '{{languages}}';
+        }
+    }
 
-	/**
-	 * Business rules related to database
-	 *
-	 * @return array validation rules for model attributes.
-	 * @since  1.0.0
-	 */
-	public function rules() {
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('languageTitle', 'required'),
-			array('languageIsActive', 'numerical', 'integerOnly'=>true),
-			array('languageId', 'length', 'max'=>8),
-			array('languageTitle', 'length', 'max'=>255),
-		);
-	}
+    /**
+     * Business rules related to database
+     *
+     * @return array validation rules for model attributes.
+     * @since  1.0.0
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('languageTitle', 'required'),
+            array('languageIsActive', 'numerical', 'integerOnly' => true),
+            array('languageId', 'length', 'max' => 8),
+            array('languageTitle', 'length', 'max' => 255),
+        );
+    }
 
-	/**
-	 * The followings are the available model relations:
-	 *
-	 * @return array relational rules.
-	 * @since  1.0.0
-	 */
-	public function relations() {
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'authors' => array(self::HAS_MANY, 'sweelix\yii1\ext\db\ar\Author', 'languageId'),
-			'contents' => array(self::HAS_MANY, 'sweelix\yii1\ext\db\ar\Content', 'languageId'),
-			'groups' => array(self::HAS_MANY, 'sweelix\yii1\ext\db\ar\Group', 'languageId'),
-			'tags' => array(self::HAS_MANY, 'sweelix\yii1\ext\db\ar\Tag', 'languageId'),
-		);
-	}
+    /**
+     * The followings are the available model relations:
+     *
+     * @return array relational rules.
+     * @since  1.0.0
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'authors' => array(self::HAS_MANY, 'sweelix\yii1\ext\db\ar\Author', 'languageId'),
+            'contents' => array(self::HAS_MANY, 'sweelix\yii1\ext\db\ar\Content', 'languageId'),
+            'groups' => array(self::HAS_MANY, 'sweelix\yii1\ext\db\ar\Group', 'languageId'),
+            'tags' => array(self::HAS_MANY, 'sweelix\yii1\ext\db\ar\Tag', 'languageId'),
+        );
+    }
 
-	/**
-	 * attributes labels
-	 *
-	 * @return array customized attribute labels (name=>label)
-	 * @since  1.0.0
-	 */
-	public function attributeLabels() {
-		return array(
-			'languageId' => \Yii::t('sweelix', 'Language'),
-			'languageTitle' => \Yii::t('sweelix', 'Language Title'),
-			'languageIsActive' => \Yii::t('sweelix', 'Language Is Active'),
-		);
-	}
+    /**
+     * attributes labels
+     *
+     * @return array customized attribute labels (name=>label)
+     * @since  1.0.0
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'languageId' => \Yii::t('sweelix', 'Language'),
+            'languageTitle' => \Yii::t('sweelix', 'Language Title'),
+            'languageIsActive' => \Yii::t('sweelix', 'Language Is Active'),
+        );
+    }
 }

@@ -40,7 +40,7 @@ class Token extends \CBehavior
      *
      * Catching events with their assiocated functions
      *
-     * @return void
+     * @return array
      * @since  2.0.0
      */
     public function events()
@@ -78,7 +78,9 @@ class Token extends \CBehavior
                     }
                     if (is_array($info['index']) === true) {
                         foreach (self::$defaultValues as $parameter => $parameterValue) {
-                            $this->_parsedTemplate[$key][$parameter] = isset($info['index'][$parameter]) ? $info['index'][$parameter] : $parameterValue;
+                            $this->_parsedTemplate[$key][$parameter] = isset($info['index'][$parameter]) ?
+                                $info['index'][$parameter] :
+                                $parameterValue;
                         }
                     } else {
                         $this->_parsedTemplate[$key] = false;
