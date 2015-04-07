@@ -53,7 +53,7 @@ use Yii;
 class CmsMapper extends CComponent implements ArrayAccess
 {
 
-    CONST CACHE_KEY_PREFIX = 'sweelix.yii1.ext.components.cmsmapper';
+    const CACHE_KEY_PREFIX = 'sweelix.yii1.ext.components.cmsmapper';
 
     public static $CACHE_EXPIRE = 3600;
 
@@ -163,9 +163,11 @@ class CmsMapper extends CComponent implements ArrayAccess
 
     private static function fetchControllerForElement($class, $elementId)
     {
-        //TODO: protect access to offline / draft elements. Probably a good place to hook some "admin" stuff (preview,...)
+        //TODO: protect access to offline / draft elements.
+        //Probably a good place to hook some "admin" stuff (preview,...)
         $controller = null;
         $action = null;
+        $cacheKey = self::CACHE_KEY_PREFIX . ':' . $class . '-' . $elementId;
         if ((Yii::app()->cache !== null) && (($cachedData = Yii::app()->cache->get($cacheKey)) !== false)) {
             // we are using the cache
             $controller = $cachedData['controller'];
@@ -176,9 +178,11 @@ class CmsMapper extends CComponent implements ArrayAccess
                 if ($element->template !== null) {
                     list($controller, $action) = self::buildRouteFromTemplate($element->template);
                     if ((Yii::app()->cache !== null)) {
-                        Yii::app()->cache->set($cacheKey,
-                            array('cmsData' => $cmsData, 'controller' => $controller, 'action' => $action),
-                            self::$CACHE_EXPIRE);
+                        Yii::app()->cache->set(
+                            $cacheKey,
+                            array('controller' => $controller, 'action' => $action),
+                            self::$CACHE_EXPIRE
+                        );
                     }
                 }
             }
@@ -201,10 +205,13 @@ class CmsMapper extends CComponent implements ArrayAccess
         $action = null;
         if ($cmsData !== false) {
             // sample : c7df5a6a81c
-            $cacheKey = self::CACHE_KEY_PREFIX . ':' . $cmsData[0] . '.' . $cmsData[1] . '.' . $cmsData[2] . '.' . $cmsData[3];
+            $cacheKey = self::CACHE_KEY_PREFIX .
+                ':' . $cmsData[0] . '.' . $cmsData[1] . '.' . $cmsData[2] . '.' . $cmsData[3];
             if ($cmsData[0] !== null) {
-                list($controller, $action) = self::fetchControllerForElement('sweelix\yii1\ext\entities\Content',
-                    $cmsData[0]);
+                list($controller, $action) = self::fetchControllerForElement(
+                    'sweelix\yii1\ext\entities\Content',
+                    $cmsData[0]
+                );
             } elseif ($cmsData[1] !== null) {
                 if ((Yii::app()->cache !== null) && (($cachedData = Yii::app()->cache->get($cacheKey)) !== false)) {
                     // we are using the cache
@@ -219,8 +226,10 @@ class CmsMapper extends CComponent implements ArrayAccess
                                 case 'redirect':
                                     if ($element->redirection instanceof Node) {
                                         if ($element->nodeId == $element->redirection->nodeId) {
-                                            throw new CHttpException(500,
-                                                Yii::t('sweelix', 'Recursive redirection loop'));
+                                            throw new CHttpException(
+                                                500,
+                                                Yii::t('sweelix', 'Recursive redirection loop')
+                                            );
                                         }
                                         $element = $element->redirection;
                                         $finished = false;
@@ -242,7 +251,9 @@ class CmsMapper extends CComponent implements ArrayAccess
                                     if ($criteriaBuilder->count() > 0) {
                                         $content = $criteriaBuilder->find();
                                         if ($content->template !== null) {
-                                            list($controller, $action) = self::buildRouteFromTemplate($content->template);
+                                            list($controller, $action) = self::buildRouteFromTemplate(
+                                                $content->template
+                                            );
                                             $cmsData[0] = $content->contentId;
                                             if ((Yii::app()->cache !== null)) {
                                                 Yii::app()->cache->set($cacheKey, array(
@@ -274,11 +285,15 @@ class CmsMapper extends CComponent implements ArrayAccess
                     }
                 }
             } elseif ($cmsData[2] !== null) {
-                list($controller, $action) = self::fetchControllerForElement('sweelix\yii1\ext\entities\Tag',
-                    $cmsData[2]);
+                list($controller, $action) = self::fetchControllerForElement(
+                    'sweelix\yii1\ext\entities\Tag',
+                    $cmsData[2]
+                );
             } elseif ($cmsData[3] !== null) {
-                list($controller, $action) = self::fetchControllerForElement('sweelix\yii1\ext\entities\Group',
-                    $cmsData[3]);
+                list($controller, $action) = self::fetchControllerForElement(
+                    'sweelix\yii1\ext\entities\Group',
+                    $cmsData[3]
+                );
             }
             if ($controller === null) {
                 throw new CHttpException(404, Yii::t('sweelix', 'Element not found'));
@@ -286,5 +301,4 @@ class CmsMapper extends CComponent implements ArrayAccess
         }
         return array($controller, $action);
     }
-
 }
