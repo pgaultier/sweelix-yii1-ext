@@ -165,7 +165,7 @@ class Tag extends ActiveRecordTag
      */
     public function getRoute($action = null)
     {
-        $route = RouteEncoder::encoder(null, null, $this->tagId) . '/';
+        $route = RouteEncoder::encode(null, null, $this->tagId) . '/';
         if (empty($action) === false) {
             $route = $route . $action;
         }
