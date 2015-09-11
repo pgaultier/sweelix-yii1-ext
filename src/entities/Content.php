@@ -74,7 +74,7 @@ class Content extends ActiveRecordContent
     /**
      * @var string current signature
      */
-    private $contentSignature;
+    private $signature;
 
     /**
      * Retrieve signature for current content
@@ -84,10 +84,10 @@ class Content extends ActiveRecordContent
      */
     public function getContentSignature()
     {
-        if ($this->contentSignature === null) {
-            $this->contentSignature = $this->getSignature();
+        if ($this->signature === null) {
+            $this->signature = $this->getSignature();
         }
-        return $this->contentSignature;
+        return $this->signature;
     }
 
     /**
@@ -100,7 +100,7 @@ class Content extends ActiveRecordContent
      */
     public function setContentSignature($signature)
     {
-        $this->contentSignature = $signature;
+        $this->signature = $signature;
     }
 
     /**
