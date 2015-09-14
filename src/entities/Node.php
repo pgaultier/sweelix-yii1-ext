@@ -78,7 +78,7 @@ class Node extends ActiveRecordNode
     /**
      * @var string current signature
      */
-    private $nodeSignature;
+    private $signature;
 
     /**
      * Retrieve signature for current node
@@ -88,10 +88,10 @@ class Node extends ActiveRecordNode
      */
     public function getNodeSignature()
     {
-        if ($this->nodeSignature === null) {
-            $this->nodeSignature = $this->getSignature();
+        if ($this->signature === null) {
+            $this->signature = $this->getSignature();
         }
-        return $this->nodeSignature;
+        return $this->signature;
     }
 
     /**
@@ -104,7 +104,7 @@ class Node extends ActiveRecordNode
      */
     public function setNodeSignature($signature)
     {
-        $this->nodeSignature = $signature;
+        $this->signature = $signature;
     }
 
     /**
