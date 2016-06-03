@@ -113,6 +113,8 @@ class Content extends ActiveRecordContent
         $attributes = $this->attributes;
         unset($attributes['contentCreateDate']);
         unset($attributes['contentUpdateDate']);
+        unset($attributes['contentStartDate']);
+        unset($attributes['contentEndDate']);
         return sha1(serialize($attributes));
     }
 
